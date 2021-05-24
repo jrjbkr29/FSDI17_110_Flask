@@ -38,6 +38,7 @@ function init() {
     console.log("Flask Page");
 
     getLocation();
+    
 }
 
 
