@@ -1,7 +1,6 @@
 
 
 function getLocation() {
-    console.log("get location func");
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(locationObtained);
     } 
@@ -11,8 +10,7 @@ function getLocation() {
 }
 
 function locationObtained(position) {
-    console.log("Current location", position);
-    console.log("location obt func");
+    console.log("Current location: ", position);
     let data = {
         lat: position.coords.latitude,
         lon: position.coords.longitude
@@ -25,20 +23,23 @@ function locationObtained(position) {
         contentType: 'application/json',
         success: function (res) {
             console.log("Server says: ", res);
+            currentWeather = "Current conditions: " + res.current.weather[0].description
+            feelsLike= "Feels like: " + res.current.feels_like + " celsius"
+            temp = "Current temperature: " + res.current.temp + " celsius"
+            humidity = "Current humidity: " + res.current.humidity + "%"
+            $("#weather-info").append(currentWeather)
+            $("#temp").append(temp)
+            $("#humidity").append(humidity)
+            $("#feels-like").append(feelsLike)
         },
         error: function (details) {
             console.log("Error sending data", details);
         }
     });
-
-    console.log("after ajax request");
 }
 
 function init() {
-    console.log("Flask Page");
-
     getLocation();
-    
 }
 
 
